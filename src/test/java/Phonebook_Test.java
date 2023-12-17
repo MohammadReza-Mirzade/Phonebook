@@ -1,3 +1,6 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * writing unit tests for each method of classes
  * If you have no idea about how to write unit tests, you can search the internet or check your first assignment
