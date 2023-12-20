@@ -13,6 +13,8 @@ public class Phonebook {
      * @param contact is the Person that we created and just adding it
      */
     public void addContact(Person contact){
+        if (contact == null) throw new Error("Null is not valid as contact.");
+        if (this.getContact(contact.getName()) == 1) throw new Error("This name is already exist.");
         contacts.add(contact);
     }
 
@@ -23,8 +25,6 @@ public class Phonebook {
      */
     public String getPhoneNumber(String name){
         for (Person contact : contacts) {
-            if(contact == null)
-                return "Contact Not Found";
             if(Objects.equals(contact.getName(), name))
                 return contact.getPhone();
         }
@@ -38,9 +38,7 @@ public class Phonebook {
     */
     public int getContact(String name){
         for (Person contact : contacts) {
-            if (contact == null)
-                return 0;
-            else if (Objects.equals(contact.getName(), name)) {
+            if (Objects.equals(contact.getName(), name)) {
                 System.out.println(contact);
                 return 1;
             }
@@ -55,10 +53,10 @@ public class Phonebook {
      * @return 1 if changing was successful and 0 if it missed
      */
     public int updateContactName(String name, String newName){
+        if (getContact(newName) == 1) throw new Error("This name is already exist.");
+        if (newName.trim().isEmpty() || newName.trim().isBlank()) throw new Error("Your name is empty.");
         for (Person contact : contacts) {
-            if (contact == null)
-                return 0;
-            else if (Objects.equals(contact.getName(), name)) {
+            if (Objects.equals(contact.getName(), name)) {
                 contact.setName(newName);
                 return 1;
             }
@@ -73,9 +71,7 @@ public class Phonebook {
      */
     public int updateContactPhoneNumber(String name, String newPhone){
         for (Person contact : contacts) {
-            if (contact == null)
-                return 0;
-            else if (Objects.equals(contact.getName(), name)) {
+            if (Objects.equals(contact.getName(), name)) {
                 contact.setPhone(newPhone);
                 return 1;
             }
@@ -90,8 +86,6 @@ public class Phonebook {
      */
     public int deleteContact(String name){
         for (Person contact : contacts) {
-            if (contact == null)
-                return 0;
             if(Objects.equals(contact.getName(), name)){
                 contacts.remove(contact);
                 return 1;
