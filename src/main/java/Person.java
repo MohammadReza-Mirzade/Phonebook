@@ -7,13 +7,14 @@ public class Person {
 
 
     public Person(String name, String phone) {
-        this.name = name;
+        if (name.trim().isEmpty() || name.trim().isBlank()) throw new Error("Your name is empty.");
+        this.name = name.trim();
         try {
             if(phone.length() == 11 && phone.charAt(0) == '0' && phone.charAt(1) == '9')
                 this.phone = phone;
             else throw new IllegalArgumentException();
         } catch (IllegalArgumentException e){
-            System.out.println("Your Phone Number Should have 11 digits and starts with 09");;
+            throw new Error("Your Phone Number Should have 11 digits and starts with 09");
         }
         this.id = identifier;
         this.isHidden = false;
