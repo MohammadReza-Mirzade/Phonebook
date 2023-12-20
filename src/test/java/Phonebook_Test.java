@@ -1,4 +1,6 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -10,5 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * Attention:  We would check your commits and it will affect your score
  */
 public class Phonebook_Test {
+    Phonebook phonebook;
 
+    @BeforeEach
+    void init() {
+        phonebook = new Phonebook();
+        Person person1 = new Person("Mohammad", "09177777771");
+        Person person2 = new Person("Ali", "09177777772");
+        Person person3 = new Person("Reza", "09177777773");
+        Person person4 = new Person("Ahmad", "09177777774");
+        phonebook.addContact(person1);
+        phonebook.addContact(person2);
+        phonebook.addContact(person3);
+        phonebook.addContact(person4);
+    }
 }
