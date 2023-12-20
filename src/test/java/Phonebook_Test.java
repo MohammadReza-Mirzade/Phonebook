@@ -42,4 +42,11 @@ public class Phonebook_Test {
         assertEquals(phonebook.getPhoneNumber("Ahmad"), "09177777774");
         assertEquals(phonebook.getPhoneNumber("RERERE"), "Contact Not Found");
     }
+
+    @Test
+    void getContact() {
+        assertEquals(phonebook.getContact("Mohammad"), 1);
+        assertEquals(phonebook.getContact("Ahmad"), 1);
+        assertEquals(phonebook.getContact("RERERE"), 0);
+    }
 }
