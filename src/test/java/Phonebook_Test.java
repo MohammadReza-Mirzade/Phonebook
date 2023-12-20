@@ -28,6 +28,41 @@ public class Phonebook_Test {
     }
 
     @Test
+    void personConstructor() {
+        Person person = null;
+        try {
+            person = new Person("MRM", "0917747777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertNull(person);
+
+        try {
+            person = new Person("MRM", "19177477777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertNull(person);
+
+        try {
+            person = new Person("MRM", "0817747777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertNull(person);
+
+        try {
+            person = new Person("", "0917747777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your name is empty.");
+        }
+        assertNull(person);
+
+        person = new Person("TEST", "09177777777");
+        assertNotEquals(null, person);
+    }
+
+    @Test
     void addContact() {
         try {
             phonebook.addContact(null);
