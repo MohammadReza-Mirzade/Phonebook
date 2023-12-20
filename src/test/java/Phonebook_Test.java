@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -177,5 +179,12 @@ public class Phonebook_Test {
         assertEquals(4, phonebook.getAllContacts().size());
         assertEquals("Mohammad", phonebook.getAllContacts().get(0).getName());
         assertEquals("09177777771", phonebook.getAllContacts().get(0).getPhone());
+    }
+
+    @Test
+    void setAllContactsHidden() {
+        phonebook.setAllContactsHidden();
+        ArrayList<Person> allContacts = phonebook.getAllContacts();
+        allContacts.forEach(contact -> assertTrue(contact.isHidden()));
     }
 }
