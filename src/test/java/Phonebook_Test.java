@@ -26,4 +26,13 @@ public class Phonebook_Test {
         phonebook.addContact(person3);
         phonebook.addContact(person4);
     }
+
+    @Test
+    void addContact() {
+        try {
+            phonebook.addContact(null);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "Null is not valid as contact.");
+        }
+    }
 }
