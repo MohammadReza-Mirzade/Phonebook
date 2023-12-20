@@ -31,9 +31,18 @@ public class Phonebook_Test {
     void addContact() {
         try {
             phonebook.addContact(null);
-        } catch (Exception e) {
+        } catch (Error e) {
             assertEquals(e.getMessage(), "Null is not valid as contact.");
         }
+
+        try {
+            phonebook.addContact(new Person("Mohammad", "09177777775"));
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "This name is already exist.");
+        }
+
+        phonebook.addContact(new Person("RERERE", "09177777775"));
+        assertEquals(phonebook.getContact("RERERE"), 1);
     }
 
     @Test
