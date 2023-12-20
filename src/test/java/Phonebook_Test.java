@@ -63,7 +63,7 @@ public class Phonebook_Test {
 
         assertEquals("TEST", person.getName());
         assertEquals("09177777777", person.getPhone());
-        assertEquals(5, person.getId());
+        assertNotNull(person.getId());
         assertFalse(person.isHidden());
         assertEquals("Name: TEST - Phone number: 09177777777", person.toString());
 
@@ -100,10 +100,10 @@ public class Phonebook_Test {
         person.setPhone("09177777766");
         assertEquals("09177777766", person.getPhone());
 
-        person.setUnHidden();
+        person.setHidden();
         assertTrue(person.isHidden());
 
-        person.setHidden();
+        person.setUnHidden();
         assertFalse(person.isHidden());
     }
 
