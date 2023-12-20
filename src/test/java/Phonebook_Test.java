@@ -171,4 +171,11 @@ public class Phonebook_Test {
         assertEquals(1, phonebook.deleteContact("Mohammad"));
         assertEquals(0, phonebook.getContact("Mohammad"));
     }
+
+    @Test
+    void getAllContacts() {
+        assertEquals(4, phonebook.getAllContacts().size());
+        assertEquals("Mohammad", phonebook.getAllContacts().get(0).getName());
+        assertEquals("09177777771", phonebook.getAllContacts().get(0).getPhone());
+    }
 }
