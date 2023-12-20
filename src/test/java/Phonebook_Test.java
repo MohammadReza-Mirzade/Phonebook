@@ -35,4 +35,11 @@ public class Phonebook_Test {
             assertEquals(e.getMessage(), "Null is not valid as contact.");
         }
     }
+
+    @Test
+    void getPhoneNumber() {
+        assertEquals(phonebook.getPhoneNumber("Mohammad"), "09177777771");
+        assertEquals(phonebook.getPhoneNumber("Ahmad"), "09177777774");
+        assertEquals(phonebook.getPhoneNumber("RERERE"), "Contact Not Found");
+    }
 }
