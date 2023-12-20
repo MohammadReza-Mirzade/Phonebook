@@ -145,5 +145,11 @@ public class Phonebook_Test {
         assertEquals(phonebook.updateContactName("Mohammad", "MohammadReza"), 1);
         assertEquals(phonebook.getContact("Mohammad"), 0);
         assertEquals(phonebook.getContact("MohammadReza"), 1);
+        try {
+            phonebook.updateContactName("Ahmad", "Ali");
+        } catch (Error e) {
+            assertEquals("This name is already exist.", e.getMessage());
+        }
+        assertEquals(1, phonebook.getContact("Ahmad"));
     }
 }
