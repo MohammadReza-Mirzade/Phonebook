@@ -187,4 +187,11 @@ public class Phonebook_Test {
         ArrayList<Person> allContacts = phonebook.getAllContacts();
         allContacts.forEach(contact -> assertTrue(contact.isHidden()));
     }
+
+    @Test
+    void setAllContactsUnHidden() {
+        phonebook.setAllContactsUnHidden();
+        ArrayList<Person> allContacts = phonebook.getAllContacts();
+        allContacts.forEach(contact -> assertFalse(contact.isHidden()));
+    }
 }
