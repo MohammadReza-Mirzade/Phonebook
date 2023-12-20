@@ -39,14 +39,15 @@ public class Person {
 
 
     public void setName(String name) {
-        this.name = name;
+        if (name.trim().isBlank() || name.trim().isEmpty()) throw new Error("Your name is empty.");
+        this.name = name.trim();
     }
 
     public void setPhone(String phone) {
         if(phone.length() == 11 && phone.charAt(0) == '0' && phone.charAt(1) == '9')
             this.phone = phone;
         else
-            System.out.println("Not Correct Form");
+            throw new Error("Your Phone Number Should have 11 digits and starts with 09");
     }
 
     public void setHidden() {
