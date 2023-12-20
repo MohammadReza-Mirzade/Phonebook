@@ -49,4 +49,12 @@ public class Phonebook_Test {
         assertEquals(phonebook.getContact("Ahmad"), 1);
         assertEquals(phonebook.getContact("RERERE"), 0);
     }
+
+    @Test
+    void updateContactName() {
+        assertEquals(phonebook.updateContactName("RERERE", "RE"), 0);
+        assertEquals(phonebook.updateContactName("Mohammad", "MohammadReza"), 1);
+        assertEquals(phonebook.getContact("Mohammad"), 0);
+        assertEquals(phonebook.getContact("MohammadReza"), 1);
+    }
 }
