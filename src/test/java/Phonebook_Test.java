@@ -28,7 +28,7 @@ public class Phonebook_Test {
     }
 
     @Test
-    void personConstructor() {
+    void person() {
         Person person = null;
         try {
             person = new Person("MRM", "0917747777");
@@ -60,6 +60,51 @@ public class Phonebook_Test {
 
         person = new Person("TEST", "09177777777");
         assertNotEquals(null, person);
+
+        assertEquals("TEST", person.getName());
+        assertEquals("09177777777", person.getPhone());
+        assertEquals(5, person.getId());
+        assertEquals(false, person.isHidden());
+        assertEquals("Name: TEST - Phone number: 09177777777", person.toString());
+
+        try {
+            person.setName("");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your name is empty.");
+        }
+
+        person.setName("TEST2");
+        assertEquals("TEST2", person.getName());
+
+        try {
+            person.setPhone("0917777777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertEquals("09177777777", person.getPhone());
+
+        try {
+            person.setPhone("19177777777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertEquals("09177777777", person.getPhone());
+
+        try {
+            person.setPhone("08177777777");
+        } catch (Error e) {
+            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+        }
+        assertEquals("09177777777", person.getPhone());
+
+        person.setPhone("09177777766");
+        assertEquals("09177777766", person.getPhone());
+
+        person.setUnHidden();
+        assertEquals(true, person.isHidden());
+
+        person.setHidden();
+        assertEquals(false, person.isHidden());
     }
 
     @Test
