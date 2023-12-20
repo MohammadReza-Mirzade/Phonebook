@@ -141,7 +141,7 @@ public class Phonebook_Test {
 
     @Test
     void updateContactName() {
-        assertEquals(1, phonebook.updateContactName("RERERE", "RE"));
+        assertEquals(0, phonebook.updateContactName("RERERE", "RE"));
         assertEquals(1, phonebook.updateContactName("Mohammad", "MohammadReza"));
         assertEquals(0, phonebook.getContact("Mohammad"));
         assertEquals(1, phonebook.getContact("MohammadReza"));
@@ -151,5 +151,17 @@ public class Phonebook_Test {
             assertEquals("This name is already exist.", e.getMessage());
         }
         assertEquals(1, phonebook.getContact("Ahmad"));
+    }
+
+    @Test
+    void updateContactPhoneNumber() {
+        assertEquals(0, phonebook.updateContactName("RERERE", "09177777777"));
+        try {
+            assertEquals(1, phonebook.updateContactName("Mohammad", "09177777"));
+        } catch (Error e) {
+            assertEquals("Your Phone Number Should have 11 digits and starts with 09", e.getMessage());
+        }
+        assertEquals(1, phonebook.updateContactName("Mohammad", "09177777777"));
+        assertEquals("09177777777", phonebook.getPhoneNumber("Mohammad"));
     }
 }
