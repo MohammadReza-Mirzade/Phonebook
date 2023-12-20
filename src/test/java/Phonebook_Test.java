@@ -112,39 +112,39 @@ public class Phonebook_Test {
         try {
             phonebook.addContact(null);
         } catch (Error e) {
-            assertEquals(e.getMessage(), "Null is not valid as contact.");
+            assertEquals("Null is not valid as contact.", e.getMessage());
         }
 
         try {
             phonebook.addContact(new Person("Mohammad", "09177777775"));
         } catch (Error e) {
-            assertEquals(e.getMessage(), "This name is already exist.");
+            assertEquals("This name is already exist.", e.getMessage());
         }
 
         phonebook.addContact(new Person("RERERE", "09177777775"));
-        assertEquals(phonebook.getContact("RERERE"), 1);
+        assertEquals(1, phonebook.getContact("RERERE"));
     }
 
     @Test
     void getPhoneNumber() {
-        assertEquals(phonebook.getPhoneNumber("Mohammad"), "09177777771");
-        assertEquals(phonebook.getPhoneNumber("Ahmad"), "09177777774");
-        assertEquals(phonebook.getPhoneNumber("RERERE"), "Contact Not Found");
+        assertEquals("09177777771", phonebook.getPhoneNumber("Mohammad"));
+        assertEquals("09177777774", phonebook.getPhoneNumber("Ahmad"));
+        assertEquals("Contact Not Found", phonebook.getPhoneNumber("RERERE"));
     }
 
     @Test
     void getContact() {
-        assertEquals(phonebook.getContact("Mohammad"), 1);
-        assertEquals(phonebook.getContact("Ahmad"), 1);
-        assertEquals(phonebook.getContact("RERERE"), 0);
+        assertEquals(1, phonebook.getContact("Mohammad"));
+        assertEquals(1, phonebook.getContact("Ahmad"));
+        assertEquals(0, phonebook.getContact("RERERE"));
     }
 
     @Test
     void updateContactName() {
-        assertEquals(phonebook.updateContactName("RERERE", "RE"), 0);
-        assertEquals(phonebook.updateContactName("Mohammad", "MohammadReza"), 1);
-        assertEquals(phonebook.getContact("Mohammad"), 0);
-        assertEquals(phonebook.getContact("MohammadReza"), 1);
+        assertEquals(1, phonebook.updateContactName("RERERE", "RE"));
+        assertEquals(1, phonebook.updateContactName("Mohammad", "MohammadReza"));
+        assertEquals(0, phonebook.getContact("Mohammad"));
+        assertEquals(1, phonebook.getContact("MohammadReza"));
         try {
             phonebook.updateContactName("Ahmad", "Ali");
         } catch (Error e) {
