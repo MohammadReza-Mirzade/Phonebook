@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.aggregator.ArgumentAccessException;
 
 import java.util.ArrayList;
 
@@ -31,36 +32,19 @@ public class Phonebook_Test {
 
     @Test
     void person() {
-        Person person = null;
-        try {
-            person = new Person("MRM", "0917747777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
-        assertNull(person);
+        Error e = assertThrows(Error.class, () -> new Person("MRM", "0917747777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
 
-        try {
-            person = new Person("MRM", "19177477777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
-        assertNull(person);
+        e = assertThrows(Error.class, () -> new Person("MRM", "19177477777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
 
-        try {
-            person = new Person("MRM", "0817747777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
-        assertNull(person);
+        e = assertThrows(Error.class, () -> new Person("MRM", "0817747777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
 
-        try {
-            person = new Person("", "0917747777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your name is empty.");
-        }
-        assertNull(person);
+        e = assertThrows(Error.class, () -> new Person("", "0917747777"));
+        assertEquals(e.getMessage(), "Your name is empty.");
 
-        person = new Person("TEST", "09177777777");
+        Person person = new Person("TEST", "09177777777");
         assertNotEquals(null, person);
 
         assertEquals("TEST", person.getName());
@@ -69,34 +53,25 @@ public class Phonebook_Test {
         assertFalse(person.isHidden());
         assertEquals("Name: TEST - Phone number: 09177777777", person.toString());
 
-        try {
-            person.setName("");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your name is empty.");
-        }
+        e = assertThrows(Error.class, () -> person.setName(""));
+        assertEquals(e.getMessage(), "Your name is empty.");
 
         person.setName("TEST2");
         assertEquals("TEST2", person.getName());
 
-        try {
-            person.setPhone("0917777777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
+        e = assertThrows(Error.class, () -> person.setPhone("0917777777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+
         assertEquals("09177777777", person.getPhone());
 
-        try {
-            person.setPhone("19177777777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
+        e = assertThrows(Error.class, () -> person.setPhone("19177777777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+
         assertEquals("09177777777", person.getPhone());
 
-        try {
-            person.setPhone("08177777777");
-        } catch (Error e) {
-            assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
-        }
+        e = assertThrows(Error.class, () -> person.setPhone("08177777777"));
+        assertEquals(e.getMessage(), "Your Phone Number Should have 11 digits and starts with 09");
+
         assertEquals("09177777777", person.getPhone());
 
         person.setPhone("09177777766");
@@ -111,19 +86,13 @@ public class Phonebook_Test {
 
     @Test
     void addContact() {
-        try {
-            phonebook.addContact(null);
-        } catch (Error e) {
-            assertEquals("Null is not valid as contact.", e.getMessage());
-        }
+        Error e = assertThrows(Error.class, () -> phonebook.addContact(null));
+        assertEquals("Null is not valid as contact.", e.getMessage());
 
-        try {
-            phonebook.addContact(new Person("Mohammad", "09177777775"));
-        } catch (Error e) {
-            assertEquals("This name is already exist.", e.getMessage());
-        }
+        e = assertThrows(Error.class, () -> phonebook.addContact(new Person("Mohammad", "09177777775")));
+        assertEquals("This name is already exist.", e.getMessage());
 
-        phonebook.addContact(new Person("RERERE", "09177777775"));
+        phonebook.addContact(new Person("RERERE", "09177777778"));
         assertEquals(1, phonebook.getContact("RERERE"));
     }
 
@@ -144,33 +113,40 @@ public class Phonebook_Test {
     @Test
     void updateContactName() {
         assertEquals(0, phonebook.updateContactName("RERERE", "RE"));
+
         assertEquals(1, phonebook.updateContactName("Mohammad", "MohammadReza"));
+
         assertEquals(0, phonebook.getContact("Mohammad"));
+
         assertEquals(1, phonebook.getContact("MohammadReza"));
-        try {
-            phonebook.updateContactName("Ahmad", "Ali");
-        } catch (Error e) {
-            assertEquals("This name is already exist.", e.getMessage());
-        }
+
+        Error e = assertThrows(Error.class, () -> phonebook.updateContactName("Ahmad", "Ali"));
+        assertEquals("This name is already exist.", e.getMessage());
+
+        e = assertThrows(Error.class, () -> phonebook.updateContactName("Ahmad", ""));
+        assertEquals("Your name is empty.", e.getMessage());
+
         assertEquals(1, phonebook.getContact("Ahmad"));
     }
 
     @Test
     void updateContactPhoneNumber() {
-        assertEquals(0, phonebook.updateContactName("RERERE", "09177777777"));
-        try {
-            assertEquals(1, phonebook.updateContactName("Mohammad", "09177777"));
-        } catch (Error e) {
-            assertEquals("Your Phone Number Should have 11 digits and starts with 09", e.getMessage());
-        }
-        assertEquals(1, phonebook.updateContactName("Mohammad", "09177777777"));
+        assertEquals(0, phonebook.updateContactPhoneNumber("RERERE", "09177777777"));
+
+        Error e = assertThrows(Error.class, () -> phonebook.updateContactPhoneNumber("Mohammad", "09177777"));
+        assertEquals("Your Phone Number Should have 11 digits and starts with 09", e.getMessage());
+
+        assertEquals(1, phonebook.updateContactPhoneNumber("Mohammad", "09177777777"));
+
         assertEquals("09177777777", phonebook.getPhoneNumber("Mohammad"));
     }
 
     @Test
     void deleteContact() {
         assertEquals(0, phonebook.deleteContact("RERERE"));
+
         assertEquals(1, phonebook.deleteContact("Mohammad"));
+
         assertEquals(0, phonebook.getContact("Mohammad"));
     }
 
